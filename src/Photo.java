@@ -163,9 +163,6 @@ class Photo {
         allVars.addAll(persons);
         allVars.addAll(distances);
 
-        int[] inverters = new int[n_prefs];
-        Arrays.fill(inverters, -1);
-
 
         store.impose(new Max(distances.toArray(new IntVar[0]),
                 maxDist));
@@ -179,7 +176,7 @@ class Photo {
             new IndomainMin<>());
 
         Search<IntVar> search = new DepthFirstSearch<>();
-
+            search.setSolutionListener(new Print);
         boolean result = search.labeling(store, select, maxDist);
 
         if (result)
