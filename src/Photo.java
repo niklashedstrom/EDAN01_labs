@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//javac -cp lib/*.jar -d bin src/Photo.java
+//java -cp "bin;lib\*" Photo 1 0
+
 class Photo {
 
     public static void main(String[] args) {
@@ -100,7 +103,6 @@ class Photo {
 
         List<IntVar> allVars = new ArrayList<IntVar>();
         allVars.addAll(persons);
-        allVars.addAll(relations);
 
         int[] inverters = new int[n_prefs];
         Arrays.fill(inverters, -1);
@@ -115,11 +117,12 @@ class Photo {
 
         SelectChoicePoint<IntVar> select = new SimpleSelect<>(
             allVars.toArray(new IntVar[0]),
-            null,
+            new SmallestDomain(),
             new IndomainMin<>());
 
         Search<IntVar> search = new DepthFirstSearch<>();
 
+        search.setSolutionListener(new PrintOutListener<>());
         boolean result = search.labeling(store, select, totalRel);
 
         if (result)
@@ -176,7 +179,7 @@ class Photo {
             new IndomainMin<>());
 
         Search<IntVar> search = new DepthFirstSearch<>();
-            search.setSolutionListener(new Print);
+
         boolean result = search.labeling(store, select, maxDist);
 
         if (result)
