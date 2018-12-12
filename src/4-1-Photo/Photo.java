@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//javac -cp lib/*.jar -d bin src/Photo.java
+//javac -cp lib/*.jar -d bin src/4-1-Photo/Photo.java
 //java -cp "bin;lib\*" Photo 1 0
 
 class Photo {

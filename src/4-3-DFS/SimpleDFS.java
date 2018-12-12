@@ -73,6 +73,10 @@ public class SimpleDFS  {
      */
     public IntVar costVariable = null;
 
+	private int nbrOfNodes = 0;
+
+	private int wrongDecisions = 0;
+
     public SimpleDFS(Store s) {
 	store = s;
     }
@@ -82,6 +86,7 @@ public class SimpleDFS  {
      * This function is called recursively to assign variables one by one.
      */
     public boolean label(IntVar[] vars) {
+	nbrOfNodes++;
 
 	if (trace) {
 	    for (int i = 0; i < vars.length; i++) 
@@ -109,6 +114,7 @@ public class SimpleDFS  {
 		
 	if (!consistent) {
 	    // Failed leaf of the search tree
+		wrongDecisions++;
 	    return false;
 	} else { // consistent
 
@@ -178,7 +184,9 @@ public class SimpleDFS  {
 
 	for (int i = 0; i < variablesToReport.length; i++) 
 	    System.out.print (variablesToReport[i] + " ");
-	System.out.println ("\n---------------");
+	System.out.println("\nNumber of nodes " + nbrOfNodes);
+	System.out.println("Wrong decisions " + wrongDecisions);
+	System.out.println ("---------------");
     }
 
     public void setVariablesToReport(IntVar[] v) {
@@ -212,7 +220,7 @@ public class SimpleDFS  {
 
 		searchVariables = new IntVar[v.length-1];
 		for (int i = 0; i < v.length-1; i++) {
-		    searchVariables[i] = v[i+1]; 
+		    searchVariables[i] = v[i + 1]; 
 		}
 
 		return v[0];
